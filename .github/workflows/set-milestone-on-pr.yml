@@ -4,14 +4,6 @@ on:
     types: [closed]
 
 jobs:
-  log:
-    runs-on: ubuntu-20.04
-    steps:
-      - run: |
-          echo "github context is"
-          env
-          echo {{github.event}}
-          cat ${GITHUB_EVENT_PATH}
   set-milestone:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
@@ -23,13 +15,14 @@ jobs:
           cd packages/core
           MILESTONE_NUMBER=$(npm --no-git-tag-version version minor | cut -c 2-)
           echo "::set-output name=theia-milestone-number::${MILESTONE_NUMBER}"
+          echo "Next milestone is $MILESTONE_NUMBER"
       - id: set 
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             // get milestone
-            const milestone = {{steps.compute-milestone.outputs.theia-milestone-number}}
+            const milestone = ${{steps.compute-milestone.outputs.theia-milestone-number}}
             console.log(`Using milestone with name ${milestone}`)
             // check if milestone exists ?
             const issuesGetMilestonesParams = {
