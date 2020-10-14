@@ -22,7 +22,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             // get milestone
-            const milestone = ${{steps.compute-milestone.outputs.theia-milestone-number}}
+            const milestone = '1.8.09'
             console.log(`Using milestone with name ${milestone}`)
             // check if milestone exists ?
             const issuesGetMilestonesParams = {
