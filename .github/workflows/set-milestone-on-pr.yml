@@ -1,8 +1,15 @@
 on:
   pull_request:
+    branches: [master]
     types: [closed]
 
 jobs:
+  log:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          echo "github context is"
+          env
   set-milestone:
     if: github.event.pull_request.merged == 'true'
     runs-on: ubuntu-20.04
