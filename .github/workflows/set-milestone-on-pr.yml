@@ -29,7 +29,7 @@ jobs:
             };
 
             // search if milestone is already defined
-            const response = await github.issues.listMilestonesForRepo(issuesGetMilestonesParams);
+            const response = await github.issues.listMilestones(issuesGetMilestonesParams);
             let githubMilestone = response.data.find(milestoneResponse => milestoneResponse.title === milestone);
     
             // not defined, create it
