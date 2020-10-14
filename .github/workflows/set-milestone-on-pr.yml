@@ -16,12 +16,21 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/github-script@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - id: compute-milestone
+        run: |
+          cd packages/core
+          MILESTONE_NUMBER=$(npm --no-git-tag-version version minor | cut -c 2-)
+          echo "::set-output name=theia-milestone-number::${MILESTONE_NUMBER}"
+      - id: set 
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             // get milestone
-            const milestone = '1.7.0'
+            const milestone = {{steps.compute-milestone.outputs.theia-milestone-number}}
+            console.log(`Using milestone with name ${milestone}`)
             // check if milestone exists ?
             const issuesGetMilestonesParams = {
               owner: context.repo.owner,
