@@ -10,9 +10,10 @@ jobs:
       - run: |
           echo "github context is"
           env
+          echo {{github.event}}
           cat ${GITHUB_EVENT_PATH}
   set-milestone:
-    if: github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/github-script@v3
