@@ -10,6 +10,7 @@ jobs:
       - run: |
           echo "github context is"
           env
+          cat ${GITHUB_EVENT_PATH}
   set-milestone:
     if: github.event.pull_request.merged == 'true'
     runs-on: ubuntu-20.04
