@@ -13,9 +13,7 @@ jobs:
       - id: compute-milestone
         run: |
           cd packages/core
-          MILESTONE_NUMBER=$(npm --no-git-tag-version version minor | cut -c 2-)
-          echo "::set-env name=MILESTONE_NUMBER::$MILESTONE_NUMBER"
-          echo "Next milestone is $MILESTONE_NUMBER"
+          echo "MILESTONE_NUMBER=$(npm --no-git-tag-version version minor | cut -c 2-)" >> $GITHUB_ENV
       - id: set 
         uses: actions/github-script@v3
         with:
