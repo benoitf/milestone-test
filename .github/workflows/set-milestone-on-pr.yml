@@ -14,7 +14,7 @@ jobs:
         run: |
           cd packages/core
           MILESTONE_NUMBER=$(npm --no-git-tag-version version minor | cut -c 2-)
-          echo "::set-output name=theia-milestone-number::${MILESTONE_NUMBER}"
+          echo "::set-env name=MILESTONE_NUMBER::$MILESTONE_NUMBER"
           echo "Next milestone is $MILESTONE_NUMBER"
       - id: set 
         uses: actions/github-script@v3
@@ -22,7 +22,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             // get milestone
-            const milestone = '1.8.09'
+            const milestone = process.env.MILESTONE_NUMBER
             console.log(`Using milestone with name ${milestone}`)
             // check if milestone exists ?
             const issuesGetMilestonesParams = {
