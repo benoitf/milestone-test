@@ -1,3 +1,2 @@
 # milestone-test
 
-foo
