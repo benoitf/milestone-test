@@ -1,3 +1,1 @@
 # milestone-test
-
-test
